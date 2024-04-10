@@ -1,3 +1,4 @@
+import random
 class NavalBattle:
     playing_field = []
 
@@ -17,13 +18,21 @@ class NavalBattle:
             print()
 
     def shot(self, x, y):
-        if NavalBattle.playing_field[y-1][x-1] == 1:
+        if not NavalBattle.playing_field:
+            print('игровое поле не заполнено')
+        elif NavalBattle.playing_field[y-1][x-1] == 1:
             NavalBattle.playing_field[y-1][x-1] = self.symbol
             print("Попал!")
         elif NavalBattle.playing_field[y - 1][x - 1] == 0:
             NavalBattle.playing_field[y - 1][x - 1] = "o"
             print("Мимо")
-        
+        else:
+            print('ошибка')
+
+    @staticmethod
+    def new_game():
+        pass
+
     def __str__(self):
         return f'{self.symbol}'
 
