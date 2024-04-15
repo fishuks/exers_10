@@ -12,7 +12,27 @@ class RomanNumber:
     int_value : int
             integer value of number
     
+    Сlass attribute:
+    roman_dict : dictionary
+            dict with roman numbers and their value
+    
     '''
+    roman_dict = {
+        'I': 1,
+        'IV': 4,
+        'V': 5,
+        'IX': 9,
+        'X': 10,
+        'XL': 40,
+        'L': 50,
+        'XC': 90,
+        'C': 100,
+        'CD': 400,
+        'D': 500,
+        'CM': 900,
+        'M': 1000
+    }
+    
     def __init__(self, value):
         '''
         Function that initializes attributes of class instances
@@ -24,16 +44,24 @@ class RomanNumber:
                 value of number
 
         '''
-        if self.is_roman(value):
-            self.rom_value = value
-            self.int_value = 0
-        elif self.is_int(value):
-            self.int_value = value
-            self.rom_value = ''
-        else:
-            print('Ошибка')
-            self.rom_value = None
-            self.int_value = None
+        self.value = value
+        if isinstance(value, str):
+            if RomanNumber.is_roman(value):
+                self.rom_value = value
+                self.int_value = self.decimal_number()
+            else:
+                print("ошибка")
+                self.int_value = None
+                self.rom_value = None
+
+        elif isinstance(value, int):
+            if RomanNumber.is_int(value):
+                self.int_value = value
+                self.rom_value = self.roman_number()
+            else:
+                print("ошибка")
+                self.int_value = None
+                self.rom_value = None
 
     @staticmethod
     def is_int(value):
@@ -49,7 +77,7 @@ class RomanNumber:
         return : True / False
 
         '''
-        if isinstance(value, int) and value > 0:
+        if isinstance(value, int) and value > 0 and value < 3999:
             return True
         else:
             return False
@@ -69,20 +97,36 @@ class RomanNumber:
         return : True / False
 
         '''
-        roman_nums = ['I', 'V', 'X', 'L', 'C', 'D', 'M']
+        if value in RomanNumber.roman_dict:
+            return True
+        
         prev_sign = 0
-        count = 1
-        for sign in str(value):
-            if sign not in roman_nums:
+        count = 0
+
+        for sign in value:
+            if sign not in RomanNumber.roman_dict:
                 return False
+            
+            if RomanNumber.roman_dict[sign] > prev_sign:
+                if count > 0:
+                    return False
+                if prev_sign in [5, 50, 500]:
+                    return False
+                
+                count = 1
+
             if prev_sign == sign:
                 count += 1
+                if prev_sign in [5, 50, 500]:
+                    return False
                 if count > 3:
                     return False
             
             else:
-                prev_sign = sign
-                count = 1
+                count = 0
+
+            prev_sign = RomanNumber.roman_dict[sign]
+
         return True
                 
     def decimal_number(self):
@@ -100,27 +144,22 @@ class RomanNumber:
         return : decimal_num
 
         '''
-        roman_dict = {'I': 1,
-                      'V': 5,
-                      'X': 10,
-                      'L': 50,
-                      'C': 100,
-                      'D': 500,
-                      'M': 1000
-                      }
-        if not self.decimal_number:
-            decimal_num = 0
-            prev_value = 0
 
-            for sign in self.rom_value:
-                value = roman_dict[sign]
-                if value > prev_value:
-                    decimal_num += value - 2 * prev_value
-                else:
-                    decimal_num += value
-                prev_value = value
-            self.decimal_number = decimal_num
-        return self.decimal_number
+        if self.rom_value is None:
+            return None
+
+        decimal_num = 0
+        prev_value = 0
+
+        for sign in self.rom_value:
+            value = RomanNumber.roman_dict[sign]
+            if value > prev_value:
+                decimal_num += value - 2 * prev_value
+            else:
+                decimal_num += value
+            prev_value = value
+
+        return decimal_num
     
     def roman_number(self):
         '''
@@ -137,16 +176,18 @@ class RomanNumber:
         return : rom_value
 
         '''
-        roman_dict = {1: 'I', 5: 'V',10: 'X', 50: 'L',100: 'C',
-                      500: 'D',1000: 'M'}
-        if not self.rom_value:
-            roman_number = ''
-            for value, numeral in sorted(roman_dict.items(), reverse=True):
-                while self.int_value >= value:
-                    roman_number += numeral
-                    self.int_value -= value
-            roman_number = self.rom_value
-        return self.rom_value
+        
+        copy = self.int_value
+        roman_number = ''
+        dictnr = {}
+        for key, value in RomanNumber.roman_dict.items():
+            dictnr[value] = key
+        for value in sorted(dictnr.keys(), reverse=True):
+            while self.int_value >= value:
+                roman_number += dictnr[value]
+                self.int_value -= value
+        self.int_value = copy
+        return roman_number
 
     def __str__(self):
         '''
