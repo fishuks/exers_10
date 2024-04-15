@@ -1,37 +1,103 @@
 import random
 class NavalBattle:
+    '''
+    Class of MorseMsg
+
+    ...
+
+    Сlass instance attribute:
+    symbol : str 
+            symbol of user
+
+    Сlass attribute:
+    playing_field : list
+            list with a field for the game
+       
+    '''
     playing_field = []
-  
 
     def __init__(self, symbol):
+        '''
+        Function that initializes attributes of class instances
+
+        ...
+
+        Parameters:
+        symbol : str 
+            symbol of user
+
+        '''
         self.symbol = symbol
 
     @staticmethod
     def show():
+        '''
+        Function which print a field for the user
+
+        ...
+
+        Parameters:
+        playing_field : list
+            list with a field for the game
+
+        ...
+
+        return : none
+
+        '''
         for row in NavalBattle.playing_field:
             for cell in row:
                 if cell == 0:
-                    print("~", end=" ")
+                    print('~', end=' ')
                 elif cell == 1:
-                    print("~", end=" ")
+                    print('~', end=' ')
                 else:
-                    print(cell, end=" ")
+                    print(cell, end=' ')
             print()
 
     def shot(self, x, y):
+        '''
+        Function which makes the shot
+
+        ...
+
+        Parameters:
+        x : int
+            the x coordinate
+        y : int
+            the y coordinate
+        ...
+
+        return : none
+
+        '''
         if not NavalBattle.playing_field:
             print('игровое поле не заполнено')
         elif NavalBattle.playing_field[y-1][x-1] == 1:
             NavalBattle.playing_field[y-1][x-1] = self.symbol
-            print("Попал!")
+            print('Попал!')
         elif NavalBattle.playing_field[y - 1][x - 1] == 0:
             NavalBattle.playing_field[y - 1][x - 1] = "o"
-            print("Мимо")
+            print('Мимо')
         else:
             print('ошибка')
 
     @staticmethod
     def new_game():
+        '''
+        Function which creates a field for a new game
+
+        ...
+
+        Parameters:
+        playing_field : list
+            list with a field for the game
+
+        ...
+
+        return : playing_field
+
+        '''
         NavalBattle.playing_field = [[0 for _ in range(10)] for _ in range(10)]  
         ships = [(4, 1), (3, 2), (2, 3), (1, 4)]  
 
@@ -68,21 +134,20 @@ class NavalBattle:
                                     NavalBattle.playing_field[y+i][x] = 1  
                                 break
 
-        print(NavalBattle.playing_field)
-        for row in NavalBattle.playing_field:
-            for cell in row:
-                if cell == 0:
-                    print(0, end = ' ')
-                elif cell == 1:
-                    print(1, end=" ")
-                else:
-                    print(cell, end=" ")
-            print()
-
         return NavalBattle.playing_field
 
     def __str__(self):
+        '''
+
+        String representation method
+    
+        '''   
         return f'{self.symbol}'
 
     def __repr__(self):
+        '''
+
+        String representation method
+    
+        '''   
         return f'{self.symbol}'
