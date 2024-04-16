@@ -46,11 +46,11 @@ class NavalBattle:
         for row in NavalBattle.playing_field:
             for cell in row:
                 if cell == 0:
-                    print("~", end=" ")
+                    print('~', end=' ')
                 elif cell == 1:
-                    print("~", end=" ")
+                    print('~', end=' ')
                 else:
-                    print(cell, end=" ")
+                    print(cell, end=' ')
             print()
 
     def shot(self, x, y):
@@ -71,10 +71,10 @@ class NavalBattle:
         '''
         if NavalBattle.playing_field[y-1][x-1] == 1:
             NavalBattle.playing_field[y-1][x-1] = self.symbol
-            print("Попал!")
+            print('Попал!')
         elif NavalBattle.playing_field[y - 1][x - 1] == 0:
             NavalBattle.playing_field[y - 1][x - 1] = "o"
-            print("Мимо")
+            print('Мимо')
         
     def __str__(self):
         '''

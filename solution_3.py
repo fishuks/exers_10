@@ -72,7 +72,7 @@ class NavalBattle:
 
         '''
         if not NavalBattle.playing_field:
-            print('игровое поле не заполнено')
+            print('Игровое поле не заполнено')
         elif NavalBattle.playing_field[y-1][x-1] == 1:
             NavalBattle.playing_field[y-1][x-1] = self.symbol
             print('Попал!')
@@ -80,7 +80,7 @@ class NavalBattle:
             NavalBattle.playing_field[y - 1][x - 1] = "o"
             print('Мимо')
         else:
-            print('ошибка')
+            print('Ошибка')
 
     @staticmethod
     def new_game():

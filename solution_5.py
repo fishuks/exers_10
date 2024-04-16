@@ -50,7 +50,7 @@ class RomanNumber:
                 self.rom_value = value
                 self.int_value = self.decimal_number()
             else:
-                print("ошибка")
+                print('Ошибка')
                 self.int_value = None
                 self.rom_value = None
 
@@ -59,7 +59,7 @@ class RomanNumber:
                 self.int_value = value
                 self.rom_value = self.roman_number()
             else:
-                print("ошибка")
+                print('Ошибка')
                 self.int_value = None
                 self.rom_value = None
 
