@@ -1,7 +1,7 @@
 import random
 class NavalBattle:
     '''
-    Class of MorseMsg
+    Class of NavalBattle
 
     ...
 

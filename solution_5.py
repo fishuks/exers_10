@@ -177,16 +177,16 @@ class RomanNumber:
 
         '''
         
-        copy = self.int_value
+        saved_value = self.int_value
         roman_number = ''
         dictnr = {}
         for key, value in RomanNumber.roman_dict.items():
             dictnr[value] = key
-        for value in sorted(dictnr.keys(), reverse=True):
+        for value, _ in sorted(dictnr.items(), reverse=True):
             while self.int_value >= value:
                 roman_number += dictnr[value]
                 self.int_value -= value
-        self.int_value = copy
+        self.int_value = saved_value
         return roman_number
 
     def __str__(self):
